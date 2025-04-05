@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import { MapPin, Clock, Star, Car, User, Settings, LogOut, DollarSign } from 'lucide-react';
+import { MapPin, Clock, Star, Car, User, Settings, LogOut, DollarSign, Menu, X, Search, Bell, ChevronDown } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 export default function DriverDashboard() {
   const [activeTab, setActiveTab] = useState('ride-requests');
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [profile, setProfile] = useState({
     name: 'Jane Doe',
     email: 'janedoe@example.com',
@@ -23,6 +24,34 @@ export default function DriverDashboard() {
       fetchProfile();
     }
   }, [user]);
+
+  // Close sidebar when changing tabs on mobile
+  const handleTabChange = (tab: any) => {
+    setActiveTab(tab);
+    if (window.innerWidth < 768) {
+      setSidebarOpen(false);
+    }
+  };
+
+  // Close sidebar by default on small screens
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setSidebarOpen(false);
+      } else {
+        setSidebarOpen(true);
+      }
+    };
+
+    // Set initial state
+    handleResize();
+    
+    // Add event listener
+    window.addEventListener('resize', handleResize);
+    
+    // Clean up
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   function fetchProfile() {
     // Mock data for profile
@@ -50,16 +79,38 @@ export default function DriverDashboard() {
       });
   };
 
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
   return (
     <div className="flex h-screen bg-gray-100">
+      {/* Mobile Sidebar Overlay */}
+      {sidebarOpen && window.innerWidth < 768 && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-10 md:hidden"
+          onClick={toggleSidebar}
+        />
+      )}
+
       {/* Sidebar */}
-      <aside className="w-64 bg-white shadow-lg">
-        <div className="p-4 border-b">
+      <aside className={`
+        fixed md:static inset-y-0 left-0 z-20
+        w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out
+        ${sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+      `}>
+        <div className="p-4 border-b flex items-center justify-between">
           <h1 className="text-2xl font-bold text-blue-600">UniTransit</h1>
+          <button 
+            className="md:hidden text-gray-500 hover:text-gray-700"
+            onClick={toggleSidebar}
+          >
+            <X className="w-6 h-6" />
+          </button>
         </div>
         <nav className="p-4">
           <button 
-            onClick={() => setActiveTab('ride-requests')}
+            onClick={() => handleTabChange('ride-requests')}
             className={`flex items-center w-full p-3 rounded-lg mb-2 ${
               activeTab === 'ride-requests' ? 'bg-blue-50 text-blue-600' : 'hover:bg-gray-50'
             }`}
@@ -68,7 +119,7 @@ export default function DriverDashboard() {
             Ride Requests
           </button>
           <button 
-            onClick={() => setActiveTab('earnings')}
+            onClick={() => handleTabChange('earnings')}
             className={`flex items-center w-full p-3 rounded-lg mb-2 ${
               activeTab === 'earnings' ? 'bg-blue-50 text-blue-600' : 'hover:bg-gray-50'
             }`}
@@ -77,7 +128,7 @@ export default function DriverDashboard() {
             Earnings
           </button>
           <button 
-            onClick={() => setActiveTab('history')}
+            onClick={() => handleTabChange('history')}
             className={`flex items-center w-full p-3 rounded-lg mb-2 ${
               activeTab === 'history' ? 'bg-blue-50 text-blue-600' : 'hover:bg-gray-50'
             }`}
@@ -86,7 +137,7 @@ export default function DriverDashboard() {
             History
           </button>
           <button 
-            onClick={() => setActiveTab('profile')}
+            onClick={() => handleTabChange('profile')}
             className={`flex items-center w-full p-3 rounded-lg mb-2 ${
               activeTab === 'profile' ? 'bg-blue-50 text-blue-600' : 'hover:bg-gray-50'
             }`}
@@ -95,7 +146,7 @@ export default function DriverDashboard() {
             My Profile
           </button>
           <button 
-            onClick={() => setActiveTab('settings')}
+            onClick={() => handleTabChange('settings')}
             className={`flex items-center w-full p-3 rounded-lg mb-2 ${
               activeTab === 'settings' ? 'bg-blue-50 text-blue-600' : 'hover:bg-gray-50'
             }`}
@@ -115,7 +166,45 @@ export default function DriverDashboard() {
 
       {/* Main Content */}
       <main className="flex-1 overflow-auto">
-        <div className="p-8">
+        {/* Header */}
+        <header className="bg-white shadow-sm">
+          <div className="flex items-center justify-between px-4 md:px-8 py-4">
+            <div className="flex items-center">
+              <button 
+                className="mr-4 md:hidden text-gray-600"
+                onClick={toggleSidebar}
+              >
+                <Menu className="w-6 h-6" />
+              </button>
+              <div className="flex items-center bg-gray-100 rounded-lg px-4 py-2 w-full md:w-auto">
+                <Search className="w-5 h-5 text-gray-400 mr-2 flex-shrink-0" />
+                <input 
+                  type="text" 
+                  placeholder="Search..." 
+                  className="bg-transparent border-none focus:outline-none w-full"
+                />
+              </div>
+            </div>
+            <div className="flex items-center space-x-2 md:space-x-4">
+              <button className="p-2 hover:bg-gray-100 rounded-lg">
+                <Bell className="w-5 h-5 text-gray-600" />
+              </button>
+              <button className="p-2 hover:bg-gray-100 rounded-lg">
+                <Settings className="w-5 h-5 text-gray-600" />
+              </button>
+              <div className="flex items-center space-x-2">
+                <img 
+                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" 
+                  alt="Admin" 
+                  className="w-8 h-8 rounded-full"
+                />
+                <span className="font-medium hidden md:inline">Driver</span>
+                <ChevronDown className="w-4 h-4 text-gray-600 hidden md:inline" />
+              </div>
+            </div>
+          </div>
+        </header>
+        <div className="p-4 md:p-8">
           {activeTab === 'ride-requests' && (
             <div>
               <h2 className="text-2xl font-bold mb-6">Ride Requests</h2>
@@ -191,28 +280,30 @@ export default function DriverDashboard() {
             <div>
               <h2 className="text-2xl font-bold mb-6">Ride History</h2>
               <div className="bg-white rounded-lg shadow overflow-hidden">
-                <table className="w-full">
-                  <thead className="bg-gray-50">
-                    <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Passenger</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">From</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">To</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Amount</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-200">
-                    {[1, 2, 3].map((i) => (
-                      <tr key={i}>
-                        <td className="px-6 py-4 whitespace-nowrap">2024-03-{i < 10 ? `0${i}` : i}</td>
-                        <td className="px-6 py-4 whitespace-nowrap">Passenger {i}</td>
-                        <td className="px-6 py-4 whitespace-nowrap">Location {i}</td>
-                        <td className="px-6 py-4 whitespace-nowrap">Destination {i}</td>
-                        <td className="px-6 py-4 whitespace-nowrap">${i * 10}.00</td>
+                <div className="overflow-x-auto">
+                  <table className="w-full">
+                    <thead className="bg-gray-50">
+                      <tr>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Passenger</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">From</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">To</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Amount</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody className="divide-y divide-gray-200">
+                      {[1, 2, 3].map((i) => (
+                        <tr key={i}>
+                          <td className="px-6 py-4 whitespace-nowrap">2024-03-{i < 10 ? `0${i}` : i}</td>
+                          <td className="px-6 py-4 whitespace-nowrap">Passenger {i}</td>
+                          <td className="px-6 py-4 whitespace-nowrap">Location {i}</td>
+                          <td className="px-6 py-4 whitespace-nowrap">Destination {i}</td>
+                          <td className="px-6 py-4 whitespace-nowrap">${i * 10}.00</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           )}
@@ -250,13 +341,13 @@ export default function DriverDashboard() {
             <div className="max-w-2xl mx-auto">
               <h2 className="text-2xl font-bold mb-6">My Profile</h2>
               <div className="bg-white rounded-lg shadow p-6">
-                <div className="flex items-center mb-6">
+                <div className="flex flex-col sm:flex-row items-center mb-6">
                   <img
                     src="https://i.pravatar.cc/100"
                     alt=""
-                    className="w-20 h-20 rounded-full mr-6"
+                    className="w-20 h-20 rounded-full mb-4 sm:mb-0 sm:mr-6"
                   />
-                  <div>
+                  <div className="text-center sm:text-left">
                     <h3 className="text-xl font-semibold">{profile.name}</h3>
                     <p className="text-gray-600">{profile.email}</p>
                   </div>
@@ -295,7 +386,7 @@ export default function DriverDashboard() {
                   </div>
                   <div className="border-t pt-4 mt-4">
                     <h4 className="font-semibold mb-4">Vehicle Information</h4>
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">
                           Make
@@ -316,7 +407,7 @@ export default function DriverDashboard() {
                           className="w-full px-3 py-2 border rounded-lg"
                         />
                       </div>
-                      <div className="col-span-2">
+                      <div className="sm:col-span-2">
                         <label className="block text-sm font-medium text-gray-700 mb-1">
                           License Plate
                         </label>
