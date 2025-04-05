@@ -7,12 +7,12 @@ export default function DriverDashboard() {
   const [activeTab, setActiveTab] = useState('ride-requests');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [profile, setProfile] = useState({
-    name: 'Jane Doe',
-    email: 'janedoe@example.com',
+    name: 'John paul',
+    email: 'johnpaul@gmail.com',
     phone: '987-654-3210',
     vehicle: {
-      make: 'Toyota',
-      model: 'Camry',
+      make: 'Keke napep',
+      model: 'Bajaj',
       plate: 'XYZ 789',
     },
   });
@@ -56,12 +56,12 @@ export default function DriverDashboard() {
   function fetchProfile() {
     // Mock data for profile
     setProfile({
-      name: 'Jane Doe',
-      email: 'janedoe@example.com',
+      name: 'John hasan',
+      email: 'johnhasan@gmail.com',
       phone: '987-654-3210',
       vehicle: {
-        make: 'Toyota',
-        model: 'Camry',
+        make: 'Keke napep',
+        model: 'Bajaj',
         plate: 'XYZ 789',
       },
     });
@@ -100,7 +100,10 @@ export default function DriverDashboard() {
         ${sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
       `}>
         <div className="p-4 border-b flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-blue-600">UniTransit</h1>
+          <h1 
+          className="text-2xl font-bold text-blue-600"
+          onClick={() => window.location.href = 'https://uni-transit.vercel.app/'}
+          >UniTransit</h1>
           <button 
             className="md:hidden text-gray-500 hover:text-gray-700"
             onClick={toggleSidebar}
@@ -194,7 +197,7 @@ export default function DriverDashboard() {
               </button>
               <div className="flex items-center space-x-2">
                 <img 
-                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" 
+                  src="assests/profile.png" 
                   alt="Admin" 
                   className="w-8 h-8 rounded-full"
                 />
@@ -213,7 +216,7 @@ export default function DriverDashboard() {
                   <div key={i} className="bg-white rounded-lg shadow p-6">
                     <div className="flex items-center mb-4">
                       <img
-                        src={`https://i.pravatar.cc/40?img=${i}`}
+                        src={`assets/profile.png?img=${i}`}
                         alt=""
                         className="w-12 h-12 rounded-full mr-4"
                       />
@@ -236,7 +239,7 @@ export default function DriverDashboard() {
                       </div>
                       <div className="flex items-center">
                         <DollarSign className="w-4 h-4 mr-2" />
-                        Estimated fare: ${i * 10}.00
+                        Estimated fare: ₦{i * 10}.00
                       </div>
                     </div>
                     <div className="grid grid-cols-2 gap-4 mt-4">
@@ -259,17 +262,17 @@ export default function DriverDashboard() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                 <div className="bg-white rounded-lg shadow p-6">
                   <h3 className="text-lg font-semibold mb-2">Today's Earnings</h3>
-                  <p className="text-3xl font-bold">$125.00</p>
+                  <p className="text-3xl font-bold">₦10,225.00</p>
                   <p className="text-green-600 text-sm mt-2">8 completed rides</p>
                 </div>
                 <div className="bg-white rounded-lg shadow p-6">
                   <h3 className="text-lg font-semibold mb-2">This Week</h3>
-                  <p className="text-3xl font-bold">$850.00</p>
+                  <p className="text-3xl font-bold">₦20,050.00</p>
                   <p className="text-green-600 text-sm mt-2">45 completed rides</p>
                 </div>
                 <div className="bg-white rounded-lg shadow p-6">
                   <h3 className="text-lg font-semibold mb-2">This Month</h3>
-                  <p className="text-3xl font-bold">$3,250.00</p>
+                  <p className="text-3xl font-bold">₦50,250.00</p>
                   <p className="text-green-600 text-sm mt-2">180 completed rides</p>
                 </div>
               </div>
@@ -298,7 +301,7 @@ export default function DriverDashboard() {
                           <td className="px-6 py-4 whitespace-nowrap">Passenger {i}</td>
                           <td className="px-6 py-4 whitespace-nowrap">Location {i}</td>
                           <td className="px-6 py-4 whitespace-nowrap">Destination {i}</td>
-                          <td className="px-6 py-4 whitespace-nowrap">${i * 10}.00</td>
+                          <td className="px-6 py-4 whitespace-nowrap">₦{i * 10}.00</td>
                         </tr>
                       ))}
                     </tbody>
@@ -343,7 +346,7 @@ export default function DriverDashboard() {
               <div className="bg-white rounded-lg shadow p-6">
                 <div className="flex flex-col sm:flex-row items-center mb-6">
                   <img
-                    src="https://i.pravatar.cc/100"
+                    src="assets/profile.png"
                     alt=""
                     className="w-20 h-20 rounded-full mb-4 sm:mb-0 sm:mr-6"
                   />

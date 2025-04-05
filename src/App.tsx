@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import UserTypeSelection from './components/auth/UserTypeSelection';
 import AdminDashboard from './components/admin/AdminDashboard';

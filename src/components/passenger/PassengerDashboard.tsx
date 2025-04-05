@@ -7,8 +7,8 @@ export default function PassengerDashboard() {
   const [activeTab, setActiveTab] = useState('available-drivers');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [profile, setProfile] = useState({
-    name: 'John Doe',
-    email: 'johndoe@example.com',
+    name: 'Sani Musa',
+    email: 'sanimusa@gmail.com',
     phone: '123-456-7890',
   });
   const { user, signOut } = useAuth();
@@ -51,8 +51,8 @@ export default function PassengerDashboard() {
   function fetchProfile() {
     // Mock data for profile
     setProfile({
-      name: 'John Doe',
-      email: 'johndoe@example.com',
+      name: 'John Pius',
+      email: 'johnpius@gmail.com',
       phone: '123-456-7890',
     });
   }
@@ -89,7 +89,10 @@ export default function PassengerDashboard() {
         ${sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
       `}>
         <div className="p-4 border-b flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-blue-600">UniTransit</h1>
+          <h1 
+          className="text-2xl font-bold text-blue-600"
+          onClick={() => window.location.href = 'https://uni-transit.vercel.app/'}
+          >UniTransit</h1>
           <button 
             className="md:hidden text-gray-500 hover:text-gray-700"
             onClick={toggleSidebar}
@@ -174,7 +177,7 @@ export default function PassengerDashboard() {
               </button>
               <div className="flex items-center space-x-2">
                 <img 
-                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" 
+                  src="assets/profile.png" 
                   alt="Admin" 
                   className="w-8 h-8 rounded-full"
                 />
@@ -193,12 +196,12 @@ export default function PassengerDashboard() {
                   <div key={i} className="bg-white rounded-lg shadow p-6">
                     <div className="flex items-center mb-4">
                       <img
-                        src={`https://i.pravatar.cc/40?img=${i + 10}`}
+                        src={`assets/profile.png?img=${i + 10}`}
                         alt=""
                         className="w-12 h-12 rounded-full mr-4"
                       />
                       <div>
-                        <h3 className="font-semibold">Mike Smith</h3>
+                        <h3 className="font-semibold">Sani musa</h3>
                         <div className="flex items-center text-yellow-500">
                           <Star className="w-4 h-4 fill-current" />
                           <span className="ml-1">4.8</span>
@@ -208,7 +211,7 @@ export default function PassengerDashboard() {
                     <div className="space-y-2 text-sm text-gray-600">
                       <div className="flex items-center">
                         <Car className="w-4 h-4 mr-2" />
-                        Toyota Camry - ABC 123
+                        Keke Napep
                       </div>
                       <div className="flex items-center">
                         <MapPin className="w-4 h-4 mr-2" />
@@ -230,7 +233,7 @@ export default function PassengerDashboard() {
               <div className="bg-white rounded-lg shadow p-6">
                 <div className="flex flex-col sm:flex-row items-center mb-6">
                   <img
-                    src="https://i.pravatar.cc/100"
+                    src="/assets/profile.png"
                     alt=""
                     className="w-20 h-20 rounded-full mb-4 sm:mb-0 sm:mr-6"
                   />
@@ -304,16 +307,16 @@ export default function PassengerDashboard() {
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="flex items-center">
                               <img
-                                src={`https://i.pravatar.cc/40?img=${i + 10}`}
+                                src={`assets/profile.png?img=${i + 10}`}
                                 alt=""
                                 className="w-8 h-8 rounded-full mr-3"
                               />
-                              <span>Mike Smith</span>
+                              <span>Sani Musa</span>
                             </div>
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap">123 Main St</td>
-                          <td className="px-6 py-4 whitespace-nowrap">456 Oak Ave</td>
-                          <td className="px-6 py-4 whitespace-nowrap">$15.{i}0</td>
+                          <td className="px-6 py-4 whitespace-nowrap">School gate</td>
+                          <td className="px-6 py-4 whitespace-nowrap">SICT</td>
+                          <td className="px-6 py-4 whitespace-nowrap">₦150.{i}0</td>
                           <td className="px-6 py-4 whitespace-nowrap">
                             <span className="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
                               Completed
@@ -345,8 +348,8 @@ export default function PassengerDashboard() {
                     <label className="block text-sm font-medium text-gray-700 mb-1">Language</label>
                     <select className="w-full px-3 py-2 border rounded-lg">
                       <option>English</option>
-                      <option>Spanish</option>
-                      <option>French</option>
+                      <option>Hausa</option>
+                      <option>Yoruba</option>
                     </select>
                   </div>
                   <button className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">

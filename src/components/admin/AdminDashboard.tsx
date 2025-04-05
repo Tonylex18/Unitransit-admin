@@ -73,7 +73,10 @@ export default function AdminDashboard() {
         sidebarOpen ? 'translate-x-0' : '-translate-x-full'
       } fixed md:relative z-20 w-64 h-full bg-white shadow-lg transition-transform duration-300 ease-in-out md:translate-x-0`}>
         <div className="p-4 border-b flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-blue-600">UniTransit</h1>
+          <h1 
+          className="text-2xl font-bold text-blue-600"
+          onClick={() => window.location.href = 'https://uni-transit.vercel.app/'}
+          >UniTransit</h1>
           <button 
             className="md:hidden text-gray-500 hover:text-gray-700"
             onClick={toggleSidebar}
@@ -192,6 +195,9 @@ export default function AdminDashboard() {
                       <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                       <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                     </tr>
+
+
+
                   </thead>
                   <tbody className="divide-y divide-gray-200">
                     {[1, 2, 3, 4, 5].map((i) => (
@@ -204,12 +210,12 @@ export default function AdminDashboard() {
                               className="w-8 h-8 rounded-full mr-3"
                             />
                             <div>
-                              <div className="font-medium">John Doe</div>
+                              <div className="font-medium">Sunday Paul</div>
                               <div className="text-sm text-gray-500">ID: #12345{i}</div>
                             </div>
                           </div>
                         </td>
-                        <td className="px-3 md:px-6 py-4 whitespace-nowrap hidden md:table-cell">john.doe@example.com</td>
+                        <td className="px-3 md:px-6 py-4 whitespace-nowrap hidden md:table-cell">sundaypaul@gmail.com</td>
                         <td className="px-3 md:px-6 py-4 whitespace-nowrap">{Math.floor(Math.random() * 50)}</td>
                         <td className="px-3 md:px-6 py-4 whitespace-nowrap">
                           <span className="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
@@ -252,13 +258,13 @@ export default function AdminDashboard() {
                               className="w-8 h-8 rounded-full mr-3"
                             />
                             <div>
-                              <div className="font-medium">Mike Smith</div>
+                              <div className="font-medium">Mike Samuel</div>
                               <div className="text-sm text-gray-500">ID: #67890{i}</div>
                             </div>
                           </div>
                         </td>
                         <td className="px-3 md:px-6 py-4 whitespace-nowrap hidden md:table-cell">
-                          <div>Toyota Camry</div>
+                          <div>Bajaj Boxer</div>
                           <div className="text-sm text-gray-500">ABC 123{i}</div>
                         </td>
                         <td className="px-3 md:px-6 py-4 whitespace-nowrap">
